@@ -1,0 +1,65 @@
+//sensors
+obj s1 = {
+	int temp: 5,
+	string name: "Sensor 1",
+	list switches: [true,false,false,false,false,true,false,false,false,false],
+	string connectionURL: "",
+	int timer: getTime(),
+	bool isConnected: s1.connectToURL(connectionURL),
+
+	bool func isSensorWorking() {
+		return temp < 10;
+	}}
+
+obj s2 = {
+	int temp: 10,
+	string name: "Sensor 2",
+	list switches: [false,false,false,false,false,false,false,false,false,false],
+	string connectionURL: "",
+	int timer: getTime(),	
+	bool isConnected: s2.connectToURL(connectionURL),
+
+	bool func isSensorWorking() {
+		return temp < 10;
+	}}
+
+list sensors = [s1,s2];
+
+//this function checks if all of the sensors are working
+static bool func isAllSensorsWorking(list s) { 
+	
+	int i = 0;
+	loop(i < s.length()) {
+		if(!s[i].isSensorWorking()) {
+			return false;
+		}
+		i = i + 1;
+	}	
+
+	return true;
+}
+
+//check if there is a problem with sensors
+if(isAllSensorsWorking(sensors)) {
+	print("Yes, all of the sensors are working!");
+}
+else {
+	print("No, there is a problem with one of the sensors");
+}
+
+//read value from sensor if it is connected to the internet
+//getInput already checks if it is connected to the given url
+//if it is not connected it gives a run-time error.
+s1.temp = s1.getInput("temp");
+
+//send input to the given url
+s2.sendInput({string name: "temp", int value: 25});
+
+//update input
+s2.temp = s2.getInput("temp");
+
+//some arithmetic expressions
+int result = (14 + 2) / (4 * 2);
+float result2 = 0.2 + 0.5;
+
+ 
